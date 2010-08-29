@@ -2,9 +2,6 @@
  * Compress : 	A simple program to compress
  * 				consecutive occurance of characters
  * 				in the given string
- *	
- * To Try	:	In place replacement
- *
  */
 
 
@@ -45,8 +42,8 @@ int itoa(int n, char s[])
 	return i;
 }
 
-// Inplace compress
-void inplace_compress(char* src)
+// compress
+void compress(char* src)
 {	
 	char ch = 0;
 	char tmp[100];
@@ -89,54 +86,13 @@ void inplace_compress(char* src)
 
 }
 		
-// Compress
-void compress(char* src, char* dst)
-{	
-	char ch = 0;
-	char tmp[2];
-
-	int wr_idx 		= 0;
-	int rd_idx 		= 0;
-	int len 		= 0;
-	int occurance 	= 0;
-
-
-	// get string length
-	len = strlen(src);
-
-	while (rd_idx < len) {
-
-		ch = src[rd_idx];
-
-		// find numbe of consecutive occurance
-		while ((src[rd_idx] == ch) && (src[rd_idx] != '\0')) {
-			occurance++;
-			rd_idx++;
-		}
-
-		// compress if more than two consecutive occurance
-		if (occurance > 2) {
-			dst[wr_idx++] = ch;
-			itoa((int)occurance, tmp);
-			dst[wr_idx++] = tmp[0];
-			occurance = 0;
-		} else {
-			dst[wr_idx++] = ch;
-			occurance = 0;
-		}
-	}	
-	
-	// null terminate
-	dst[wr_idx] = '\0';
-}
-
 int main (void)
 {
-	char src[1000] = "battery type is AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa";
+	char src[1000] = "battery type is AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaBBBaaaaaaAlphaaa";
 	char dst[1000];
 
 	printf("Original = %s\n", src);
-	inplace_compress(src);
+	compress(src);
 	printf("Compressed  = %s\n", src);
 	return 0;
 }
