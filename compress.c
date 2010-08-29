@@ -1,4 +1,3 @@
-
 /*
  * Compress : 	A simple program to compress
  * 				consecutive occurance of characters
@@ -44,7 +43,7 @@ void itoa(int n, char s[])
 }
 
 // Inplace compress
-void inplace_compress(char* src, char* dst)
+void inplace_compress(char* src)
 {	
 	char ch = 0;
 	char tmp[2];
@@ -132,7 +131,7 @@ int main (void)
 	char dst[100];
 
 	printf("Original = %s\n", src);
-	inplace_compress(src, dst);
+	inplace_compress(src);
 	printf("Compressed  = %s\n", src);
 	return 0;
 }
