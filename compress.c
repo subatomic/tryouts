@@ -24,7 +24,7 @@ void reverse(char s[])
 }
 
 // Integer to ASCII
-void itoa(int n, char s[])
+int itoa(int n, char s[])
 {
 	int i, sign;
 
@@ -39,19 +39,23 @@ void itoa(int n, char s[])
 	if (sign < 0)
 		s[i++] = '-';
 	s[i] = '\0';
+
 	reverse(s);
+
+	return i;
 }
 
 // Inplace compress
 void inplace_compress(char* src)
 {	
 	char ch = 0;
-	char tmp[2];
+	char tmp[100];
 
 	int wr_idx 		= 0;
 	int rd_idx 		= 0;
 	int len 		= 0;
 	int occurance 	= 0;
+	int slen 		= 0;
 
 
 	// get string length
@@ -70,8 +74,9 @@ void inplace_compress(char* src)
 		// compress if more than two consecutive occurance
 		if (occurance > 2) {
 			src[wr_idx++] = ch;
-			itoa((int)occurance, tmp);
-			src[wr_idx++] = tmp[0];
+			slen = itoa((int)occurance, tmp);
+			memcpy(&src[wr_idx], &tmp[0], slen);
+			wr_idx += slen;
 			occurance = 0;
 		} else {
 			src[wr_idx++] = ch;
@@ -127,8 +132,8 @@ void compress(char* src, char* dst)
 
 int main (void)
 {
-	char src[100] = "battery type is AAA";
-	char dst[100];
+	char src[1000] = "battery type is AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa";
+	char dst[1000];
 
 	printf("Original = %s\n", src);
 	inplace_compress(src);
